@@ -1,4 +1,5 @@
+var io = require('socket.io')();
+var jwt = require('jsonwebtoken');
 
-const Server = require('socket.io');
-const io = new Server();
+
 
