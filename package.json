@@ -9,6 +9,7 @@
   "author": "PumpMyKins",
   "license": "AGPL-3.0",
   "dependencies": {
+    "jsonwebtoken": "^8.5.1",
     "socket.io": "^2.2.0"
   }
 }
