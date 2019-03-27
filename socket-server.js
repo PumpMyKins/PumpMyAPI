@@ -1,29 +1,46 @@
-var http = require('http');
-const jwt = require('jsonwebtoken');
-
-var server = http.createServer(function(req, res) {
+const http = require('http');
+const server = http.createServer(function(req, res) {
         res.writeHead(200, {"Content-Type": "text/html"});
         res.end("API : ON");
 });
 
 const io = require('socket.io').listen(server);
 
-/*use(function(socket, next){
-	  if (socket.handshake.query && socket.handshake.query.token){
-	    jwt.verify(socket.handshake.query.token, 'SECRET_KEY', function(err, decoded) {
-	      if(err) return next(console.log(new Error('Authentication error')));
-	      socket.decoded = decoded;
-	      next();
-	    });
-	  } else {
-	      next(console.log(new Error('Authentication error')));
-	  }
-	})*/
-	io.sockets.on('connection', function(socket) {
-	    // Connection now authenticated to receive further events
-		console.log("user connected")
+const tokenManager = require('./Manager').getTokensManager();
+const messageManager = require('./Manager').getMessagesManager(tokenManager,io);
 
+io.use((socket, next) => {
+  const token = socket.handshake.query.token;
 
-	});
+  tokenManager.verify(token,(err,result) => {
+    if(err){
+      console.log("TokenManager Auth Error : " + err.message);
+      socket.disconnect();
+      next(err);
+    }else{
+      socket._id = result;
+      console.log("TokenManager Auth OK : " + socket._id);
+      next();
+    }
+  });
+}).on('connection', function(socket) {
+
+  socket.on('messaging', function (data) {
+
+    messageManager.addPendingMessage(data,(err,result) => {
+      if(err){
+        console.error("MessagesManager Error : " + err);
+      }else {
+        console.log("MessagesManager " + result.messageID + "succesfully added to pending queue");
+      }
+    });
+
+  });
+
+  socket.on('disconnect', function () {
+
+  });
+
+});
 
 server.listen(8080);
