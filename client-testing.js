@@ -1,3 +1,5 @@
 const io = require('socket.io-client');
+const jwt = require('jsonwebtoken');
 
-io.connect("http://localhost:8080");
+token = jwt.encode(payload, SECRET_KEY, algorithm='HS256');
+console.log(token);
