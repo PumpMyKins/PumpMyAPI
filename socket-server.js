@@ -15,7 +15,7 @@ io.use((socket, next) => {
 
   tokenManager.verify(token,(err,result) => {
     if(err){
-      console.log("TokenManager Auth Error : " + err.message);
+      console.error("TokenManager Auth Error : " + err.message);
       socket.disconnect();
       next(err);
     }else{
