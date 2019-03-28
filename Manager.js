@@ -46,10 +46,12 @@ function MessagesManager(man,io){
 
 }
 
-MessagesManager.prototype.addPendingMessage = function (data,callback) {
+MessagesManager.prototype.getPendingMessages = function (target) {
 
-  if(!data) return callback(new Error("Invalid Token"));
+  return null;
 
+};
 
+MessagesManager.prototype.addPendingMessage = function (msg,callback) {
 
 };
