@@ -12,7 +12,8 @@ function TokensManager(){
   /////////////////////////////////////
   // Add token
 
-  map.set('token1','bungee');
+  map.set('token1','travertine-proxy-pmc');
+  map.set('token2','pumpmybot-discord');
 
   /////////////////////////////////////
   this.tokens = map;
