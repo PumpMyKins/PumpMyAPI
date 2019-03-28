@@ -8,6 +8,7 @@ const io = require('socket.io').listen(server);
 
 const tokenManager = require('./Manager').getTokensManager();
 const messageManager = require('./Manager').getMessagesManager(tokenManager,io);
+const dataParser = require('./DataParser');
 
 io.use((socket, next) => {
   const token = socket.handshake.query.token;
