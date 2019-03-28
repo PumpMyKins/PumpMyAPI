@@ -39,21 +39,13 @@ io.use((socket, next) => {
 
   socket.on('messaging', function (data) {
 
-    // try to send message to target
-
-    messageManager.addPendingMessage(data,(err,result) => {
-      if(err){
-        console.error("MessagesManager Error : " + err);
-      }else {
-        if(result.sended){
-          console.log("MessagesManager " + result.message.ID + "succesfully sended to " + result.message.target);
-        }else{
-          console.log("MessagesManager " + result.message.ID + "succesfully added to pending queue");
-        }
-      }
-    });
-
-  });
+    var msg = null;
+    try {
+      msg = dataParser.parseToMessage(socket,data);
+    } catch (e) {
+      console.error("Parsing Message Error " + socket._id + "\n" + e);
+      return;
+    }
 
   socket.on('disconnect', function () {
 
