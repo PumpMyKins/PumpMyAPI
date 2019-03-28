@@ -26,13 +26,21 @@ io.use((socket, next) => {
   });
 }).on('connection', function(socket) {
 
+  // send pending message
+
   socket.on('messaging', function (data) {
+
+    var message =
 
     messageManager.addPendingMessage(data,(err,result) => {
       if(err){
         console.error("MessagesManager Error : " + err);
       }else {
-        console.log("MessagesManager " + result.messageID + "succesfully added to pending queue");
+        if(result.sended){
+          console.log("MessagesManager " + result.message.ID + "succesfully sended to " + result.message.target);
+        }else{
+          console.log("MessagesManager " + result.message.ID + "succesfully added to pending queue");
+        }
       }
     });
 
