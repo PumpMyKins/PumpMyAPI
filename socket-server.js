@@ -33,7 +33,7 @@ io.use((socket, next) => {
     console.log("MessagesManager : " + messages.length + " to send to " + socket._id);
     messages.forEach(function(message) {
       socket.emit('messaging',message.data);
-      console.log("Pending message from " + message.sender);
+      console.log("Pending message from " + message.sender + "has been sent");
     });
   }
 
