@@ -27,10 +27,20 @@ io.use((socket, next) => {
 }).on('connection', function(socket) {
 
   // send pending message
+  const messages = messageManager.getPendingMessages(socket._id);
+  if(!messages || messages.length == 0){
+    console.log("MessagesManager : Nothing to send to " + socket._id);
+  }else{
+    console.log("MessagesManager : " + messages.length + " to send to " + socket._id);
+    messages.forEach(function(message) {
+      socket.emit('messaging',message.data);
+      console.log("Pending message from " + message.sender);
+    });
+  }
 
   socket.on('messaging', function (data) {
 
-    var message =
+    // try to send message to target
 
     messageManager.addPendingMessage(data,(err,result) => {
       if(err){
