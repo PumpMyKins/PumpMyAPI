@@ -11,13 +11,29 @@ function Message(sender,data){
 
     const parser = JSON.parse(data);
     this.parser = parser;
+
+    if(!parser.target){
+      throw new Error("target not found");
+    }
     this.target = parser.target;
+
+    if(!parser.messageID){
+      throw new Error("messageID not found");
+    }
     this.ID = parser.messageID;
+
+    if(!parser.timestamp){
+      throw new Error("timestamp not found");
+    }
     this.timestamp = parser.timestamp;
+
+    if(!parser.content){
+      throw new Error("content not found");
+    }
     this.content = parser.content;
 
   } catch (e) {
-    throw new Error("Parsing Message Error");
+    throw new Error("Parsing Message (" + e.message + ")");
   }
 }
 
