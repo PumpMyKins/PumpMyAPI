@@ -1,5 +1,5 @@
 module.exports = {
-  getTokensManager: function (sender,data) {
+  parseToMessage: function (sender,data) {
     return new Message(sender,data);
   },
 };
