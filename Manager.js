@@ -7,6 +7,12 @@ module.exports = {
   }
 };
 
+/*
+*
+* TokensManager
+*
+*/
+
 function TokensManager(){
   let map = new Map();
   /////////////////////////////////////
@@ -26,6 +32,11 @@ TokensManager.prototype.verify = function (token,callback) {
   return callback(null,this.tokens.get(token));
 };
 
+/*
+*
+* MessagesManager
+*
+*/
 
 function MessagesManager(man,io){
 
