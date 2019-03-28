@@ -47,7 +47,14 @@ io.use((socket, next) => {
       return;
     }
 
-  socket.on('disconnect', function () {
+    const sockets = io.sockets.connected;
+    if(sockets[msg.target]){
+      console.log("MessagesManager " + msg.ID + "succesfully sended to " + msg.target);
+      sockets[msg.target].emit('messaging',msg.data);
+    }else{
+      console.log("MessagesManager " + msg.ID + " added to pending queue");
+      //messageManager.addPendingMessage
+    }
 
   });
 
