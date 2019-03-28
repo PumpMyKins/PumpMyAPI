@@ -12,7 +12,6 @@ const dataParser = require('./DataParser');
 
 io.use((socket, next) => {
   const token = socket.handshake.query.token;
-
   tokenManager.verify(token,(err,result) => {
     if(err){
       console.error("TokenManager Auth Error : " + err.message);
