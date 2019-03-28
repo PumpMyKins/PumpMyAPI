@@ -38,6 +38,6 @@ MessagesManager.prototype.addPendingMessage = function (data,callback) {
 
   if(!data) return callback(new Error("Invalid Token"));
 
-  return callback(null,this.tokens.get(token));
+
 
 };
